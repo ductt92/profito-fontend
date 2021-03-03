@@ -1,6 +1,8 @@
 import React from "react";
 import "./App.scss";
 import { useDarkMode } from "./ultils/darkMode"
+import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
+
 import Navbar from "./components/Navbar"
 
 
