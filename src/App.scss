@@ -1,20 +1,21 @@
 .App {
   height: 100vh;
   width: 100vw;
-  background: var(--theme-page-background);
-  color: var(--theme-page-text);
+  background: linear-gradient(to right top, #65dfc9, #6cdbeb);
+  // color: var(--theme-page-text);
+  color: #fff;
   font-family: 'Poppins', sans-serif;;
 }
 
 
 .light {
   --theme-color: #A80000;
-  // --theme-page-background: #FFF;
+  --theme-page-background: #FFF;
   --theme-page-text: #111;
 }
 
 .dark {
   --theme-color: #0000A8;
-  // --theme-page-background: #111;
+  --theme-page-background: #111;
   --theme-page-text: #FFF;
 }

@@ -1,26 +1,17 @@
 import React from "react"
 import { Link } from 'react-router-dom'
 import Button from "../Button/index"
-import { Nav, NavbarContainer } from './NavbarElements'
+import { Nav, NavbarContainer, NavLinkRouter } from './NavbarElements'
 
 
-const Navbar = () => {
+const Navbar = ({ routes }) => {
+  console.log(routes, "router")
   return (
     <>
       <Nav>
         <NavbarContainer>
-          <Link to="/" className="navbar-item">
-            Home
-          </Link>
-          <Link to="/" className="navbar-item">
-            About me
-          </Link>
-          <Link to="/" className="navbar-item">
-            Home
-          </Link>
-          <Link to="/" className="navbar-item">
-            About me
-          </Link>
+          {routes.map(routes => <NavLinkRouter to={routes?.path}>{routes.name} </NavLinkRouter>)}
+
         </NavbarContainer>
       </Nav>
 

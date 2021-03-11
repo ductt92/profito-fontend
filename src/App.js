@@ -10,30 +10,44 @@ import {
 } from "react-router-dom";
 import Notifications from 'react-notify-toast';
 import Navbar from "./components/Navbar"
+import Home from "./container/Home"
+import RouteWithSubRoutes from './components/Router'
 
 
 function App() {
   const [theme, toogleTheme] = useDarkMode();
+  const routes = [
+    {
+      path: "/",
+      component: Home,
+      name:"Home"
+    },
+    {
+      path: "/about",
+      component: Home,
+      name:"About"
+    },
+    {
+      path: "/CV",
+      component: Home,
+      name:"CV"
+    },
+
+  ];
 
   return (
     <Router>
 
       <div className={`App ${theme}`}>
-        <Navbar />
+
+        <Navbar routes={routes} />
         <Switch>
-          <Route exact path="/">
-            <div className={"dsadsa"}>
-              <p style={{ color: "red" }}>Home</p>
-            </div>
-          </Route>
-          <Route path="/about">
-            <div>About</div>
-          </Route>
-          <Route path="/dashboard">
-            <div>Dashboard</div>
-          </Route>
+          {routes.map((route, i) => (
+            <RouteWithSubRoutes key={i} {...route} />
+          ))}
         </Switch>
       </div>
+
       <Notifications />
     </Router>
 
