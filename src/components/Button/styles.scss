@@ -1,0 +1,18 @@
+button {
+    outline: none;
+    background: none;
+    border-color: #1baa80;
+    text-shadow: none;
+    border-radius: 50rem;
+    padding: 0.8rem 2.6rem;
+    font-weight:500;
+    color: #1baa80;
+    transition: all 0.5s ease;
+    cursor: pointer;
+
+}
+button:hover{
+    background:#1baa80 ;
+    color: #fff;
+    text-shadow: none;
+}   
