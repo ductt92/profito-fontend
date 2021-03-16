@@ -6,12 +6,15 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 import Notifications from 'react-notify-toast';
 import Navbar from "./components/Navbar"
-import Home from "./container/Home"
-import RouteWithSubRoutes from './components/Router'
+import HomeContainer from "./container/Home"
+import RouteWithSubRoutes from './components/Router/router'
+import PrivateRoute from './components/Router/private'
+import AdminContainer from './container/Admin'
+import AboutContainer from './container/About'
+import LoginContainer from './container/Login'
 
 
 function App() {
@@ -19,22 +22,28 @@ function App() {
   const routes = [
     {
       path: "/",
-      component: Home,
-      name:"Home"
+      component: HomeContainer,
+      name: "Home",
+      exact: true
+
     },
     {
       path: "/about",
-      component: Home,
-      name:"About"
+      component: AboutContainer,
+      name: "About"
     },
     {
-      path: "/CV",
-      component: Home,
-      name:"CV"
+      path: "/cv",
+      component: AdminContainer,
+      name: "CV"
     },
 
+    {
+      path: "/loginadmin",
+      component: LoginContainer,
+      name: "CV"
+    },
   ];
-
   return (
     <Router>
 
@@ -45,7 +54,19 @@ function App() {
           {routes.map((route, i) => (
             <RouteWithSubRoutes key={i} {...route} />
           ))}
+
+          <PrivateRoute>
+            <Route path="/manager" >
+              <AdminContainer />
+            </Route>
+          </PrivateRoute>
+
+          <Route path="*">
+            <div>404 not found</div>
+          </Route>
+
         </Switch>
+
       </div>
 
       <Notifications />

@@ -1,17 +1,19 @@
 import React from "react"
-import { Link } from 'react-router-dom'
-import Button from "../Button/index"
+import { useLocation } from "react-router-dom"
 import { Nav, NavbarContainer, NavLinkRouter } from './NavbarElements'
 
 
 const Navbar = ({ routes }) => {
-  console.log(routes, "router")
+  let location = useLocation();
   return (
     <>
-      <Nav>
+      <Nav style={{ display: location.pathname === "/loginadmin" || location.pathname === "/manager" ? "none" : "block" }}>
         <NavbarContainer>
-          {routes.map(routes => <NavLinkRouter to={routes?.path}>{routes.name} </NavLinkRouter>)}
-
+          {routes.map((routes, i) => routes.path !== "/loginadmin" ?
+            < NavLinkRouter to={routes?.path} key={i}>
+              {routes.name}
+            </NavLinkRouter>
+            : null)}
         </NavbarContainer>
       </Nav>
 
