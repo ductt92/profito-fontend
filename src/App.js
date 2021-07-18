@@ -1,62 +1,60 @@
 import React from "react";
 import "./App.scss";
-import { useDarkMode } from "./ultils/darkMode"
-// import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
-import Notifications from 'react-notify-toast';
-import Navbar from "./components/Navbar"
-import HomeContainer from "./container/Home"
-import RouteWithSubRoutes from './components/Router/router'
-import PrivateRoute from './components/Router/private'
-import AdminContainer from './container/Admin'
-import AboutContainer from './container/About'
-import LoginContainer from './container/Login'
-
+import { useDarkMode } from "./utils/darkMode";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Notifications from "react-notify-toast";
+import Navbar from "./components/Navbar";
+import HomeContainer from "./pages/Home";
+import RouteWithSubRoutes from "./components/Router/router";
+import PrivateRoute from "./components/Router/private";
+import AdminContainer from "./pages/Admin";
+import AboutContainer from "./pages/About";
+import LoginContainer from "./pages/Login";
+import { StoreContext } from "./utils/store";
 
 function App() {
   const [theme, toogleTheme] = useDarkMode();
+  const { controlNavBar } = React.useContext(StoreContext);
+  const [isShowNavBar, setShowNavBar] = controlNavBar;
   const routes = [
     {
       path: "/",
       component: HomeContainer,
       name: "Home",
-      exact: true
-
+      exact: true,
+      isPrivate: false,
     },
     {
       path: "/about",
       component: AboutContainer,
-      name: "About"
+      name: "About",
+      isPrivate: false,
     },
     {
       path: "/cv",
       component: AdminContainer,
-      name: "CV"
+      name: "CV",
+      isPrivate: false,
     },
 
     {
-      path: "/loginadmin",
+      path: "/login-admin",
       component: LoginContainer,
-      name: "CV"
+      name: "CV",
+      isPrivate: true,
     },
   ];
   return (
     <Router>
-
       <div className={`App ${theme}`}>
-
-        <Navbar routes={routes} />
+        {isShowNavBar && <Navbar routes={routes} />}
         <Switch>
           {routes.map((route, i) => (
             <RouteWithSubRoutes key={i} {...route} />
           ))}
 
           <PrivateRoute>
-            <Route path="/manager" >
+            <Route path="/manager">
               <AdminContainer />
             </Route>
           </PrivateRoute>
@@ -64,14 +62,11 @@ function App() {
           <Route path="*">
             <div>404 not found</div>
           </Route>
-
         </Switch>
-
       </div>
 
       <Notifications />
     </Router>
-
   );
 }
-export default App
+export default App;

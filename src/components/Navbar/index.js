@@ -1,25 +1,24 @@
-import React from "react"
-import { useLocation } from "react-router-dom"
-import { Nav, NavbarContainer, NavLinkRouter } from './NavbarElements'
-
+import React from "react";
+import { Nav, NavbarContainer, NavLinkRouter } from "./NavbarElements";
 
 const Navbar = ({ routes }) => {
-  let location = useLocation();
   return (
     <>
-      <Nav style={{ display: location.pathname === "/loginadmin" || location.pathname === "/manager" ? "none" : "block" }}>
+      <Nav>
         <NavbarContainer>
-          {routes.map((routes, i) => routes.path !== "/loginadmin" ?
-            < NavLinkRouter to={routes?.path} key={i}>
-              {routes.name}
-            </NavLinkRouter>
-            : null)}
+          {routes
+            .filter((v) => !v.isPrivate)
+            .map((routes, i) =>
+              routes.path !== "/login-admin" ? (
+                <NavLinkRouter to={routes?.path} key={i}>
+                  {routes.name}
+                </NavLinkRouter>
+              ) : null
+            )}
         </NavbarContainer>
       </Nav>
-
     </>
+  );
+};
 
-  )
-}
-
-export default Navbar
+export default Navbar;
